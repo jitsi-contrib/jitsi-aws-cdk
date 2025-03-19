@@ -1,16 +1,17 @@
 .LAST_BUILD
 *.ts
 !*.d.ts
-!*.js
-coverage
-.nyc_output
 *.tgz
-.eslintrc.js
-# exclude cdk artifacts
 **/cdk.out
-dist
 .LAST_PACKAGE
 *.tsbuildinfo
 test/
 tsconfig.json
-!.jsii
+eslint.config.js
+.github
+.vscode
+package
+dist/
+!dist/cjs/
+!dist/esm/
+!dist/types/

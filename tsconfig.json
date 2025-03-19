@@ -1,17 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "es2020",
-    "rootDir": "./lib",
-    "module": "NodeNext",
-    "noUncheckedSideEffectImports": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "checkJs": true,
-    "strict": true,
-    "declaration": true,
-    "outDir": "./dist",
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
-  },
-  "include": ["lib/**/*.ts", "lib/**/*.js"]
+  "extends": "./tsconfig.esm.json"
 }

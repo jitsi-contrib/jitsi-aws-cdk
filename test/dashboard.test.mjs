@@ -1,9 +1,9 @@
 import assert from 'node:assert'
+import test from 'node:test'
 import * as cdk from 'aws-cdk-lib'
 import { Template } from 'aws-cdk-lib/assertions'
 import { Dashboard } from 'aws-cdk-lib/aws-cloudwatch'
-import test from 'vitest'
-import { JitsiCloudWatchDashboard } from '../dist/index.js'
+import { JitsiCloudWatchDashboard } from '../dist/esm/index.js'
 
 export default test('test dashboard module', async (t) => {
   await t.test('new dashboard should fail if no dashboardId and no dashboard is provided', () => {
@@ -32,7 +32,7 @@ export default test('test dashboard module', async (t) => {
   await t.test('new dashboard should succeed if only dashboard construct is provided', () => {
     const app = new cdk.App()
     const main = new cdk.Stack(app, 'test-dashboard-stack')
-    const dashboard = new Dashboard(main, 'test-dashboard')
+    const dashboard = new Dashboard(main, 'pre-dashboard')
     new JitsiCloudWatchDashboard(main, 'test-dashboard', { dashboard })
     app.synth()
   })

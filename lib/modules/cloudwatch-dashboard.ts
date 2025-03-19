@@ -22,7 +22,10 @@ export interface JitsiWidgetOptions {
  */
 export class JitsiCloudWatchDashboard extends Construct {
   /** The AWS CloudWatch Dashboard instance */
-  readonly dashboard: Dashboard
+  dashboard: Dashboard
+
+  /** Default log groups to use for widgets */
+  readonly defaultLogGroups?: string[] | string
 
   /**
    * Creates a new CloudWatch Dashboard for Jitsi monitoring
@@ -33,6 +36,7 @@ export class JitsiCloudWatchDashboard extends Construct {
    * @param options.dashboard Existing dashboard to use (optional)
    * @param options.dashboardId ID for a new dashboard (required if dashboard not provided)
    * @param options.dashboardProps Props for a new dashboard (optional only relevant if no existing dashboard is used)
+   * @param options.defaultLogGroups Default log groups to use for widgets (optional)
    */
   constructor(scope: Construct, id: string, options: {
     /** Existing dashboard to use (optional) */
@@ -41,6 +45,8 @@ export class JitsiCloudWatchDashboard extends Construct {
     dashboardId?: string
     /** Props for a new dashboard (optional only relevant if no existing dashboard is used) */
     dashboardProps?: DashboardProps
+    /** Default log groups to use for widgets (optional) */
+    defaultLogGroups?: string[] | string
   }) {
     super(scope, id)
 
@@ -56,6 +62,8 @@ export class JitsiCloudWatchDashboard extends Construct {
       console.warn('dashboardProps will be ignored as an existing dashboard is being used')
     }
 
+    this.defaultLogGroups = options.defaultLogGroups
+
     this.dashboard = options.dashboard
       ?? new Dashboard(this, options.dashboardId!, options.dashboardProps ?? {})
   }
@@ -66,7 +74,13 @@ export class JitsiCloudWatchDashboard extends Construct {
    * @param logGroups Log group name(s) to query
    * @param options Configuration options
    */
-  addWeb(logGroups: string | string[], options: JitsiWidgetOptions = {}): void {
+  addWeb(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
+    if (!logGroups && this.defaultLogGroups) {
+      logGroups = this.defaultLogGroups
+    }
+    if (!logGroups) {
+      throw new Error('Log groups must be provided or set as default')
+    }
     jitsiWidgetsWeb(this.dashboard, logGroups, options)
   }
 
@@ -76,7 +90,13 @@ export class JitsiCloudWatchDashboard extends Construct {
    * @param logGroups Log group name(s) to query
    * @param options Configuration options
    */
-  addJvb(logGroups: string | string[], options: JitsiWidgetOptions = {}): void {
+  addJvb(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
+    if (!logGroups && this.defaultLogGroups) {
+      logGroups = this.defaultLogGroups
+    }
+    if (!logGroups) {
+      throw new Error('Log groups must be provided or set as default')
+    }
     jitsiWidgetsJvb(this.dashboard, logGroups, options)
   }
 
@@ -86,7 +106,13 @@ export class JitsiCloudWatchDashboard extends Construct {
    * @param logGroups Log group name(s) to query
    * @param options Configuration options
    */
-  addJicofo(logGroups: string | string[], options: JitsiWidgetOptions = {}): void {
+  addJicofo(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
+    if (!logGroups && this.defaultLogGroups) {
+      logGroups = this.defaultLogGroups
+    }
+    if (!logGroups) {
+      throw new Error('Log groups must be provided or set as default')
+    }
     jitsiWidgetsJicofo(this.dashboard, logGroups, options)
   }
 
@@ -96,7 +122,13 @@ export class JitsiCloudWatchDashboard extends Construct {
    * @param logGroups Log group name(s) to query
    * @param options Configuration options
    */
-  addProsody(logGroups: string | string[], options: JitsiWidgetOptions = {}): void {
+  addProsody(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
+    if (!logGroups && this.defaultLogGroups) {
+      logGroups = this.defaultLogGroups
+    }
+    if (!logGroups) {
+      throw new Error('Log groups must be provided or set as default')
+    }
     jitsiWidgetsProsody(this.dashboard, logGroups, options)
   }
 
@@ -106,7 +138,13 @@ export class JitsiCloudWatchDashboard extends Construct {
    * @param logGroups Log group name(s) to query
    * @param options Configuration options
    */
-  addJibri(logGroups: string | string[], options: JitsiWidgetOptions = {}): void {
+  addJibri(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
+    if (!logGroups && this.defaultLogGroups) {
+      logGroups = this.defaultLogGroups
+    }
+    if (!logGroups) {
+      throw new Error('Log groups must be provided or set as default')
+    }
     jitsiWidgetsJibri(this.dashboard, logGroups, options)
   }
 }
@@ -401,20 +439,6 @@ export function jitsiWidgetsProsody(
         streamFilter,
         'filter @message like "Client disconnected" or @message like "Client connected"',
         `stats sum(@message like "Client connected") as Connected, sum(@message like "Client disconnected") as Disconnected by bin(${timeBin})`,
-        'sort @timestamp asc',
-      ],
-    }),
-
-    new LogQueryWidget({
-      logGroupNames,
-      title: 'Active Client Connections',
-      view: LogQueryVisualizationType.LINE,
-      width: width * 2,
-      height,
-      queryLines: [
-        streamFilter,
-        'filter @message like "Client connected" or @message like "Client disconnected"',
-        `stats running_sum(if(@message like "Client connected", 1, -1)) as active_connections by bin(${timeBin})`,
         'sort @timestamp asc',
       ],
     }),

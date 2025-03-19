@@ -11,6 +11,7 @@ export default antfu(
       'antfu/no-import-dist': 'off',
       'antfu/no-import-node-test': 'off',
       'no-new': 'off',
+      'test/no-import-node-test': 'off',
     },
   },
 )
