@@ -6,11 +6,11 @@ A collection of TypeScript CDK stack constructs designed for deploying Jitsi Uti
 
 The `CloudWatchDashboard` construct creates a CloudWatch dashboard with pre-configured widgets tailored for visually monitoring Jitsi services. This setup requires existing CloudWatch log groups and streams that collect logs from Jitsi services.
 
+![Jibri Example Dashboard](/examples/images/dashboard-jibri.png)
+
 ### Prerequisites: Sending Docker Container Logs to CloudWatch
 
 To forward service logs from Docker containers to CloudWatch, use the `awslogs` log driver. Below is an example configuration for your `docker-compose.yml` file to send logs to CloudWatch:
-
-```bash
 ...
     logging:
       driver: awslogs
@@ -18,6 +18,7 @@ To forward service logs from Docker containers to CloudWatch, use the `awslogs` 
         awslogs-group: ${AWSLOGS_GROUP}
         awslogs-region: eu-central-1
         tag: '{{ with split .ImageName ":" }}{{join . "_"}}{{end}}-{{.ID}}'
+
 ```
 
 ### Usage
