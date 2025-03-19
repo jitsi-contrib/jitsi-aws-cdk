@@ -11,14 +11,14 @@ The `CloudWatchDashboard` construct creates a CloudWatch dashboard with pre-conf
 ### Prerequisites: Sending Docker Container Logs to CloudWatch
 
 To forward service logs from Docker containers to CloudWatch, use the `awslogs` log driver. Below is an example configuration for your `docker-compose.yml` file to send logs to CloudWatch:
-...
-    logging:
-      driver: awslogs
-      options:
-        awslogs-group: ${AWSLOGS_GROUP}
-        awslogs-region: eu-central-1
-        tag: '{{ with split .ImageName ":" }}{{join . "_"}}{{end}}-{{.ID}}'
 
+```yaml
+logging:
+  driver: awslogs
+  options:
+    awslogs-group: ${AWSLOGS_GROUP}
+    awslogs-region: eu-central-1
+    tag: '{{ with split .ImageName ":" }}{{join . "_"}}{{end}}-{{.ID}}'
 ```
 
 ### Usage
