@@ -71,7 +71,7 @@ export class JitsiCloudWatchDashboard extends Construct {
   /**
    * Add Jitsi Web monitoring widgets to the dashboard
    *
-   * @param logGroups Log group name(s) to query
+   * @param logGroups Log group name(s) to query, if not provided the default log groups will be used
    * @param options Configuration options
    */
   addWeb(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
@@ -87,7 +87,7 @@ export class JitsiCloudWatchDashboard extends Construct {
   /**
    * Add JVB (Jitsi Videobridge) monitoring widgets to the dashboard
    *
-   * @param logGroups Log group name(s) to query
+   * @param logGroups Log group name(s) to query, if not provided the default log groups will be used
    * @param options Configuration options
    */
   addJvb(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
@@ -103,7 +103,7 @@ export class JitsiCloudWatchDashboard extends Construct {
   /**
    * Add Jicofo monitoring widgets to the dashboard
    *
-   * @param logGroups Log group name(s) to query
+   * @param logGroups Log group name(s) to query, if not provided the default log groups will be used
    * @param options Configuration options
    */
   addJicofo(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
@@ -119,7 +119,7 @@ export class JitsiCloudWatchDashboard extends Construct {
   /**
    * Add Prosody monitoring widgets to the dashboard
    *
-   * @param logGroups Log group name(s) to query
+   * @param logGroups Log group name(s) to query, if not provided the default log groups will be used
    * @param options Configuration options
    */
   addProsody(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
@@ -135,7 +135,7 @@ export class JitsiCloudWatchDashboard extends Construct {
   /**
    * Add Jibri monitoring widgets to the dashboard
    *
-   * @param logGroups Log group name(s) to query
+   * @param logGroups Log group name(s) to query, if not provided the default log groups will be used
    * @param options Configuration options
    */
   addJibri(logGroups: string | string[] | undefined = undefined, options: JitsiWidgetOptions = {}): void {
