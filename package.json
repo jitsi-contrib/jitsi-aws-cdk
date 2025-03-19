@@ -1,0 +1,26 @@
+{
+  "name": "jitsi-aws-cdk",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "jitsi"
+  ],
+  "author": "jitsi-contrib",
+  "license": "Apache-2.0",
+  "description": "",
+  "repository": {
+		"type": "git",
+		"url": "git+https://github.com/jitsi-contrib/jitsi-aws-cdk.git"
+	},
+	"bugs": {
+		"url": "https://github.com/jitsi-contrib/jitsi-aws-cdk/issues"
+	},
+  "sideEffects": false,
+	"exports": "./index.js"
+}
