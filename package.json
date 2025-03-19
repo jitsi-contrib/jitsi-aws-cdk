@@ -1,26 +1,38 @@
 {
   "name": "jitsi-aws-cdk",
-  "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "1.0.0",
+  "description": "",
+  "author": "jitsi-contrib",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jitsi-contrib/jitsi-aws-cdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jitsi-contrib/jitsi-aws-cdk/issues"
   },
   "keywords": [
     "aws",
     "cdk",
     "jitsi"
   ],
-  "author": "jitsi-contrib",
-  "license": "Apache-2.0",
-  "description": "",
-  "repository": {
-		"type": "git",
-		"url": "git+https://github.com/jitsi-contrib/jitsi-aws-cdk.git"
-	},
-	"bugs": {
-		"url": "https://github.com/jitsi-contrib/jitsi-aws-cdk/issues"
-	},
   "sideEffects": false,
-	"exports": "./index.js"
+  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "node ./test/index.test.mjs",
+    "pretest": "rm -rf dist && tsc",
+    "build": "tsc",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "peerDependencies": {
+    "aws-cdk-lib": "^2.184.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.10.1",
+    "eslint": "^9.22.0",
+    "typescript": "^5.8.2"
+  }
 }
